@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:favorite_places/providers/additemProvider.dart";
 
-class AddPlacesScreen extends StatefulWidget {
+class AddPlacesScreen extends ConsumerStatefulWidget {
   const AddPlacesScreen({super.key});
 
   @override
-  State<AddPlacesScreen> createState() => _AddPlacesScreenState();
+  ConsumerState<AddPlacesScreen> createState() => _AddPlacesScreenState();
 }
 
-class _AddPlacesScreenState extends State<AddPlacesScreen> {
+class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
+  var text = '';
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Place'),
@@ -27,6 +32,11 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
                   labelText: 'Title',
                   fillColor: Colors.white,
                 ),
+                onChanged: (value) {
+                  setState(() {
+                    text = value;
+                  });
+                },
               ),
               const SizedBox(
                 height: 20,
