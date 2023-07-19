@@ -28,7 +28,9 @@ class PlacesScreen extends StatelessWidget {
         ],
       ),
       body: const PlacesList(
-        places: [],
+        places: [
+
+        ],
       ),
     );
   }
