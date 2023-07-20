@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 import "dart:io";
@@ -13,18 +14,49 @@ class ImageInput extends StatefulWidget {
 
 class _ImageInputState extends State<ImageInput> {
   File? _selectedimage;
-  void _takepicture() async {
-    final imagepicker = ImagePicker();
+  final imagepicker = ImagePicker();
+  void _pickgallery() async {
+    final pickedimage = await imagepicker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 600,
+    );
+
+    _onpickimage(pickedimage);
+  }
+
+  void _pickcamera() async {
     final pickedimage = await imagepicker.pickImage(
       source: ImageSource.camera,
       maxWidth: 600,
     );
 
+    _onpickimage(pickedimage);
+  }
+
+  void _onpickimage(pickedimage) {
     if (pickedimage == null) {
       return;
     } else {
-      _selectedimage = File(pickedimage.path);
+      setState(() {
+        _selectedimage = File(pickedimage.path);
+      });
     }
+  }
+
+  void _takepicture() {
+    showCupertinoDialog(
+      context: context,
+      builder: (ctx) => CupertinoAlertDialog(
+        title: const Text('Upload Image'),
+        content: const Text('Select one!'),
+        actions: [
+          TextButton(
+            onPressed: _pickgallery,
+            child: const Text('Pick Image'),
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -40,10 +72,14 @@ class _ImageInputState extends State<ImageInput> {
     );
 
     if (_selectedimage != null) {
-      contentcontainer = Image.file(
-        _selectedimage!,
-        fit: BoxFit.cover,
-        width: double.infinity,
+      contentcontainer = GestureDetector(
+        onTap: _takepicture,
+        child: Image.file(
+          _selectedimage!,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
       );
     }
     return Container(
