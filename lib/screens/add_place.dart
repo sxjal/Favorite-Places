@@ -13,8 +13,8 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
   var text = '';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch();
+  Widget build(BuildContext context) {
+    //ref.watch();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Place'),
