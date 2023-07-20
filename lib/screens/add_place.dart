@@ -39,11 +39,9 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
                   fillColor: Colors.white,
                 ),
                 controller: _controller,
-                onChanged: (value) {
-                  setState(() {
-                    text = value;
-                  });
-                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
               ),
               const SizedBox(
                 height: 20,
