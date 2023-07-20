@@ -1,3 +1,4 @@
+import "package:favorite_places/widgets/imageinput.dart";
 import 'package:flutter/material.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/providers/additemProvider.dart";
@@ -57,7 +58,7 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
               const SizedBox(
                 height: 20,
               ),
-              ImageInput(),
+              const ImageInput(),
               const SizedBox(
                 height: 20,
               ),
