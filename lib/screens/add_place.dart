@@ -2,7 +2,7 @@ import "package:favorite_places/widgets/imageinput.dart";
 import 'package:flutter/material.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/providers/additemProvider.dart";
-
+import "dart:io";
 import "package:favorite_places/models/place.dart";
 
 class AddPlacesScreen extends ConsumerStatefulWidget {
@@ -13,8 +13,14 @@ class AddPlacesScreen extends ConsumerStatefulWidget {
 }
 
 class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
+  File? image;
   var text = '';
   final _controller = TextEditingController();
+
+  void onimageadd(File addedimage) {
+    image = addedimage;
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -23,7 +29,7 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
 
   void _saveplace() {
     ref.read(placesProvider.notifier).addplace(
-          Place(title: _controller.text),
+          Place(title: _controller.text, image: image!),
         );
     //read meaning giving data to provider
 
@@ -58,7 +64,7 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const  ImageInput(),
+              const ImageInput(),
               const SizedBox(
                 height: 20,
               ),
