@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/providers/additemProvider.dart";
 
-import "../models/place.dart";
+import "package:favorite_places/models/place.dart";
 
 class AddPlacesScreen extends ConsumerStatefulWidget {
   const AddPlacesScreen({super.key});
@@ -24,6 +24,7 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
     ref.read(placesProvider.notifier).addplace(
           Place(title: _controller.text),
         );
+    //read meaning giving data to provider
 
     Navigator.of(context).pop();
   }
@@ -57,7 +58,7 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
                 height: 20,
               ),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: _saveplace,
                 icon: const Icon(
                   Icons.add,
                 ),
