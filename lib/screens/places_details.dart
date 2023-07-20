@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:favorite_places/models/place.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +14,17 @@ class PlaceDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(place.title),
       ),
-      body: Center(
-        child: Text(place.title),
+      body: Stack(
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: Image.file(
+              place.image,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
       ),
     );
   }
