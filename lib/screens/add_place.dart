@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/providers/additemProvider.dart";
 
+import "../models/place.dart";
+
 class AddPlacesScreen extends ConsumerStatefulWidget {
   const AddPlacesScreen({super.key});
 
@@ -16,6 +18,14 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _saveplace() {
+    ref.read(placesProvider.notifier).addplace(
+          Place(title: _controller.text),
+        );
+
+    Navigator.of(context).pop();
   }
 
   @override
