@@ -15,7 +15,23 @@ class _LocationInputState extends State<LocationInput> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(),
+        Container(
+          height: 170,
+          width: double.infinity,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+          child: Text(
+            "No location choosen",
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

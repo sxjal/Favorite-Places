@@ -71,7 +71,7 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
               const SizedBox(
                 height: 20,
               ),
-              LocationInput(),
+              const LocationInput(),
               const SizedBox(
                 height: 20,
               ),
