@@ -4,8 +4,9 @@ import "package:image_picker/image_picker.dart";
 import "dart:io";
 
 class ImageInput extends StatefulWidget {
-  const ImageInput({Key? key}) : super(key: key);
+  const ImageInput({super.key, required this.onimageadd});
 
+  final void Function(File image) onimageadd;
   @override
   State<StatefulWidget> createState() {
     return _ImageInputState();
@@ -34,6 +35,7 @@ class _ImageInputState extends State<ImageInput> {
   }
 
   void _onpickimage(pickedimage) {
+    widget.onimageadd(pickedimage);
     if (pickedimage == null) {
       return;
     } else {
