@@ -22,11 +22,30 @@ class _ImageInputState extends State<ImageInput> {
 
     if (pickedimage == null) {
       return;
-    } else {}
+    } else {
+      _selectedimage = File(pickedimage.path);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget contentcontainer = TextButton.icon(
+      onPressed: _takepicture,
+      icon: const Icon(
+        Icons.image,
+      ),
+      label: const Text(
+        "Add Image",
+      ),
+    );
+
+    if (_selectedimage != null) {
+      contentcontainer = Image.file(
+        _selectedimage!,
+        fit: BoxFit.cover,
+        width: double.infinity,
+      );
+    }
     return Container(
       height: 250,
       width: double.infinity,
@@ -37,15 +56,7 @@ class _ImageInputState extends State<ImageInput> {
           color: Theme.of(context).colorScheme.primary,
         ),
       ),
-      child: TextButton.icon(
-        onPressed: _takepicture,
-        icon: const Icon(
-          Icons.image,
-        ),
-        label: const Text(
-          "Add Image",
-        ),
-      ),
+      child: contentcontainer,
     );
   }
 }
