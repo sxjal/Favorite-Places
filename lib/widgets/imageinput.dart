@@ -20,7 +20,7 @@ class _ImageInputState extends State<ImageInput> {
       source: ImageSource.gallery,
       maxWidth: 600,
     );
-
+    Navigator.pop(context);
     _onpickimage(pickedimage);
   }
 
@@ -29,7 +29,7 @@ class _ImageInputState extends State<ImageInput> {
       source: ImageSource.camera,
       maxWidth: 600,
     );
-
+    Navigator.pop(context);
     _onpickimage(pickedimage);
   }
 
@@ -53,6 +53,10 @@ class _ImageInputState extends State<ImageInput> {
           TextButton(
             onPressed: _pickgallery,
             child: const Text('Pick Image'),
+          ),
+          TextButton(
+            onPressed: _pickcamera,
+            child: const Text('Click Image'),
           )
         ],
       ),
