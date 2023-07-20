@@ -10,12 +10,20 @@ class ImageInput extends StatefulWidget {
 }
 
 class _ImageInputState extends State<ImageInput> {
+  void _takepicture() {}
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 250,
+      height: 250,
       width: double.infinity,
       alignment: Alignment.center,
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
       child: TextButton.icon(
         onPressed: () {},
         icon: const Icon(
