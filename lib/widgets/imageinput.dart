@@ -16,8 +16,9 @@ class ImageInput extends StatefulWidget {
 class _ImageInputState extends State<ImageInput> {
   File? _selectedimage;
   final imagepicker = ImagePicker();
+  var pickedimage;
   void _pickgallery() async {
-    final pickedimage = await imagepicker.pickImage(
+    pickedimage = await imagepicker.pickImage(
       source: ImageSource.gallery,
       maxWidth: 600,
     );
@@ -26,7 +27,7 @@ class _ImageInputState extends State<ImageInput> {
   }
 
   void _pickcamera() async {
-    final pickedimage = await imagepicker.pickImage(
+    pickedimage = await imagepicker.pickImage(
       source: ImageSource.camera,
       maxWidth: 600,
     );
@@ -34,7 +35,7 @@ class _ImageInputState extends State<ImageInput> {
     _onpickimage(pickedimage);
   }
 
-  void _onpickimage(pickedimage) {
+  void _onpickimage(var pickedimage) {
     if (pickedimage == null) {
       return;
     } else {
@@ -42,7 +43,7 @@ class _ImageInputState extends State<ImageInput> {
         _selectedimage = File(pickedimage.path);
       });
     }
-    widget.onimageadd(pickedimage);
+    widget.onimageadd(_selectedimage!);
   }
 
   void _takepicture() {

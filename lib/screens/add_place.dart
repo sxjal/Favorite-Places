@@ -13,7 +13,7 @@ class AddPlacesScreen extends ConsumerStatefulWidget {
 }
 
 class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
-  File? image;
+  File? selectedimage;
   var text = '';
   final _controller = TextEditingController();
 
@@ -24,8 +24,12 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
   }
 
   void _saveplace() {
+    if (_controller.text.isEmpty || selectedimage == null) {
+      return;
+    }
+
     ref.read(placesProvider.notifier).addplace(
-          Place(title: _controller.text, image: image!),
+          Place(title: _controller.text, image: selectedimage!),
         );
     //read meaning giving data to provider
 
@@ -61,7 +65,7 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
                 height: 20,
               ),
               ImageInput(onimageadd: (addedimage) {
-                image = addedimage;
+                selectedimage = addedimage;
               }),
               const SizedBox(
                 height: 20,
