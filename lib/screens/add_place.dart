@@ -11,6 +11,12 @@ class AddPlacesScreen extends ConsumerStatefulWidget {
 
 class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
   var text = '';
+  final _controller = TextEditingController();
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +38,7 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
                   labelText: 'Title',
                   fillColor: Colors.white,
                 ),
+                controller: _controller,
                 onChanged: (value) {
                   setState(() {
                     text = value;
