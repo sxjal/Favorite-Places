@@ -35,7 +35,6 @@ class _ImageInputState extends State<ImageInput> {
   }
 
   void _onpickimage(pickedimage) {
-    widget.onimageadd(pickedimage);
     if (pickedimage == null) {
       return;
     } else {
@@ -43,6 +42,7 @@ class _ImageInputState extends State<ImageInput> {
         _selectedimage = File(pickedimage.path);
       });
     }
+    widget.onimageadd(pickedimage);
   }
 
   void _takepicture() {

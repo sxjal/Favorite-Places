@@ -17,10 +17,6 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
   var text = '';
   final _controller = TextEditingController();
 
-  void onimageadd(File addedimage) {
-    image = addedimage;
-  }
-
   @override
   void dispose() {
     _controller.dispose();
@@ -64,7 +60,9 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const ImageInput(onimageadd),
+              ImageInput(onimageadd: (addedimage) {
+                image = addedimage;
+              }),
               const SizedBox(
                 height: 20,
               ),
