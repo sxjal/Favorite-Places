@@ -12,7 +12,7 @@ class LocationInput extends StatefulWidget {
 
 class _LocationInputState extends State<LocationInput> {
   void _getcurrentLocation() async {
-    Location location = new Location();
+    Location location = Location();
 
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
@@ -33,7 +33,6 @@ class _LocationInputState extends State<LocationInput> {
         return;
       }
     }
-
     _locationData = await location.getLocation();
   }
 
