@@ -53,6 +53,18 @@ class _LocationInputState extends State<LocationInput> {
 
   @override
   Widget build(BuildContext context) {
+    Widget previewcontent = Text(
+      "No location choosen",
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+    );
+
+    if (_isgettinglocation) {
+      previewcontent = CircularProgressIndicator(
+        color: Theme.of(context).colorScheme.onBackground,
+      );
+    }
     return Column(
       children: [
         const SizedBox(
@@ -86,7 +98,7 @@ class _LocationInputState extends State<LocationInput> {
               icon: const Icon(
                 Icons.location_on,
               ),
-              onPressed: () {},
+              onPressed: _getcurrentLocation,
               label: const Text(
                 "Get Current Location",
               ),
