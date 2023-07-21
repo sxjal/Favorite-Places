@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:favorite_places/widgets/apikey.dart';
 import 'package:favorite_places/models/place.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -44,22 +44,29 @@ class _LocationInputState extends State<LocationInput> {
     setState(() {
       _isgettinglocation = true;
     });
-
+    final obj = apikey();
     locationData = await location.getLocation();
-    final api_key = "AIzaSyDIAkaMMSpUkM5WM1U32tFm-90E7er4rWY";
+    final api_key = obj.getkey();
     final lat = locationData.latitude;
     final lang = locationData.longitude;
 
     final url = Uri.parse(
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lang&key=$api_key");
 
+    if (lat == null || lang == null) {
+      return;
+    }
+
     final locationresponse = await http.get(url);
 
     final String address =
         json.decode(locationresponse.body)['results'][0]['formatted_address'];
     setState(() {
-      _pickedlocation =
-          PlaceLocation(latitude: lat!, longitude: lang!, address: address);
+      _pickedlocation = PlaceLocation(
+        latitude: lat,
+        longitude: lang,
+        address: address,
+      );
       _isgettinglocation = false;
     });
   }
