@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
@@ -51,7 +53,8 @@ class _LocationInputState extends State<LocationInput> {
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lang&key=$api_key");
 
     final locationresponse = await http.get(url);
-    print(locationresponse.body);
+    print(
+        json.decode(locationresponse.body)['results'][0]['formatted_address']);
     setState(() {
       _isgettinglocation = false;
     });
