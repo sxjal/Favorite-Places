@@ -47,8 +47,10 @@ class _LocationInputState extends State<LocationInput> {
     print(locationData.longitude);
 
     setState(() {
-      _isgettinglocation = true;
+      _isgettinglocation = false;
     });
+
+    
   }
 
   @override
@@ -80,12 +82,7 @@ class _LocationInputState extends State<LocationInput> {
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          child: Text(
-            "No location choosen",
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onBackground,
-                ),
-          ),
+          child: previewcontent,
         ),
         const SizedBox(
           height: 10,
