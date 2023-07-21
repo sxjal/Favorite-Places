@@ -50,6 +50,8 @@ class _LocationInputState extends State<LocationInput> {
     final url = Uri.parse(
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lang&key=$api_key");
 
+    final locationresponse = await http.get(url);
+    print(locationresponse.body);
     setState(() {
       _isgettinglocation = false;
     });
