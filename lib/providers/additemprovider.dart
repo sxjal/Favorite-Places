@@ -1,4 +1,6 @@
 // ignore_for_file: file_names
+import "dart:io";
+
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/models/place.dart";
 import "package:path_provider/path_provider.dart" as syspath;
@@ -28,6 +30,20 @@ class AddItemNotifier extends StateNotifier<List<Place>> {
   void loadplaces() async {
     final db = await _getdb();
     final data = await db.query('user_places');
+
+    data.map(
+      (row) {
+        return Place(
+          title: row['title'] as String,
+          image: File(row['image'] as String),
+          location: PlaceLocation(
+            latitude: row['lat'] as double,
+            longitude: row['lng'] as double,
+            address: row['address'] as String,
+          ),
+        );
+      },
+    ).toList();
   }
 
   void addplace(Place place) async {
