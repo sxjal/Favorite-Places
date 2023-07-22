@@ -37,7 +37,7 @@ class PlacesList extends StatelessWidget {
         },
         subtitle: Text(
           places[index].location.address,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: Theme.of(context).colorScheme.onBackground,
               ),
         ),
