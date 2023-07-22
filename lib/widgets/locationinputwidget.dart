@@ -19,7 +19,14 @@ class _LocationInputState extends State<LocationInput> {
   var _isgettinglocation = false;
 
   String get LocationImage {
-    return "https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=YOUR_API_KEY&signature=YOUR_SIGNATURE";
+    if (_pickedlocation == null) {
+      return "";
+    }
+    final key = ApiKey().getkey();
+    final lat = _pickedlocation!.latitude;
+    final lang = _pickedlocation!.longitude;
+
+    return "https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lang&zoom=16&size=600x300&maptype=roadmap&markers=color:blueA%7Clabel:S%7C$lat,$lang&key=$key&signature=YOUR_SIGNATURE";
   }
 
   void _getcurrentLocation() async {
