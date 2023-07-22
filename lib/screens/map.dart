@@ -50,17 +50,18 @@ class _MapScreenState extends State<MapScreen> {
           ),
           zoom: 16,
         ),
-        markers: {
-          Marker(
-            markerId: const MarkerId("m1"),
-            position: _pickedlocation == null
-                ? _pickedlocation!
-                : LatLng(
-                    widget.location.latitude,
-                    widget.location.longitude,
-                  ),
-          ),
-        },
+        markers: _pickedlocation == null
+            ? {}
+            : {
+                Marker(
+                  markerId: const MarkerId("m1"),
+                  position: _pickedlocation ??
+                      LatLng(
+                        widget.location.latitude,
+                        widget.location.longitude,
+                      ),
+                ),
+              },
       ),
     );
   }
