@@ -6,9 +6,29 @@ import "package:path/path.dart" as path;
 import "package:sqflite/sqflite.dart" as sql;
 import "package:sqflite/sqlite_api.dart";
 
+Future<Database> _getdb() async {
+  final dbpath = await sql.getDatabasesPath();
+  final db = await sql.openDatabase(
+    path.join(dbpath, 'places.db'),
+    onCreate: (db, version) {
+      return db.execute(
+        'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT, lat REAL, lng REAL, address TEXT)',
+      );
+    },
+    version: 1,
+  );
+
+  return db;
+}
+
 class AddItemNotifier extends StateNotifier<List<Place>> {
   AddItemNotifier() : super([]);
   //initialstate
+
+  void loadplaces() async {
+    final db = await _getdb();
+    final data = await db.query('user_places');
+  }
 
   void addplace(Place place) async {
     final appDir = await syspath.getApplicationDocumentsDirectory();
@@ -16,16 +36,7 @@ class AddItemNotifier extends StateNotifier<List<Place>> {
     final copiedimage = await place.image.copy('${appDir.path}/$filename');
     print(copiedimage);
 
-    final dbpath = await sql.getDatabasesPath();
-    final db = await sql.openDatabase(
-      path.join(dbpath, 'places.db'),
-      onCreate: (db, version) {
-        return db.execute(
-          'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT, lat REAL, lng REAL, address TEXT)',
-        );
-      },
-      version: 1,
-    );
+    final db = await _getdb();
 
     db.insert(
       "user_places",
@@ -38,7 +49,7 @@ class AddItemNotifier extends StateNotifier<List<Place>> {
         "address": place.location.address,
       },
     );
-    
+
     state = [...state, place];
   }
 
