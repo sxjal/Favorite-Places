@@ -5,6 +5,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/providers/additemProvider.dart";
 import "dart:io";
 import "package:favorite_places/models/place.dart";
+import "package:location/location.dart";
 
 class AddPlacesScreen extends ConsumerStatefulWidget {
   const AddPlacesScreen({super.key});
@@ -15,6 +16,7 @@ class AddPlacesScreen extends ConsumerStatefulWidget {
 
 class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
   File? selectedimage;
+  PlaceLocation? selectedlocation;
   var text = '';
   final _controller = TextEditingController();
 
@@ -25,12 +27,17 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
   }
 
   void _saveplace() {
-    if (_controller.text.isEmpty || selectedimage == null) {
+    if (_controller.text.isEmpty ||
+        selectedimage == null ||
+        selectedlocation == null) {
       return;
     }
 
     ref.read(placesProvider.notifier).addplace(
-          Place(title: _controller.text, image: selectedimage!),
+          Place(
+              title: _controller.text,
+              image: selectedimage!,
+              location: selectedlocation!),
         );
     //read meaning giving data to provider
 
