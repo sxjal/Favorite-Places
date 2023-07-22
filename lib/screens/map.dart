@@ -38,13 +38,15 @@ class _MapScreenState extends State<MapScreen> {
         ],
       ),
       body: GoogleMap(
-        onTap: (position) {
-          setState(
-            () {
-              _pickedlocation = position;
-            },
-          );
-        },
+        onTap: widget.isselecting
+            ? null
+            : (position) {
+                setState(
+                  () {
+                    _pickedlocation = position;
+                  },
+                );
+              },
         initialCameraPosition: CameraPosition(
           target: LatLng(
             widget.location.latitude,

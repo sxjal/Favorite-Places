@@ -21,7 +21,7 @@ class _LocationInputState extends State<LocationInput> {
   PlaceLocation? _pickedlocation;
   var _isgettinglocation = false;
 
-  String get LocationImage {
+  String get locationimage {
     if (_pickedlocation == null) {
       return "";
     }
@@ -90,7 +90,7 @@ class _LocationInputState extends State<LocationInput> {
   void _selectonmap() async {
     final pickedlocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
-        builder: (ctx) => MapScreen(),
+        builder: (ctx) => const MapScreen(),
       ),
     );
 
@@ -112,7 +112,7 @@ class _LocationInputState extends State<LocationInput> {
 
     if (_pickedlocation != null) {
       previewcontent = Image.network(
-        LocationImage,
+        locationimage,
         fit: BoxFit.cover,
         width: double.infinity,
       );
@@ -162,9 +162,9 @@ class _LocationInputState extends State<LocationInput> {
               icon: const Icon(
                 Icons.map,
               ),
-              onPressed: () {},
+              onPressed: _selectonmap,
               label: const Text(
-                "Select Location Map",
+                "Select Location on Map",
               ),
             ),
           ],
