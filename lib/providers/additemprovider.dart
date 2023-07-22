@@ -1,9 +1,10 @@
 // ignore_for_file: file_names
-
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/models/place.dart";
 import "package:path_provider/path_provider.dart" as syspath;
 import "package:path/path.dart" as path;
-import "package:flutter_riverpod/flutter_riverpod.dart";
+// ignore: depend_on_referenced_packages
+import "package:sqflite/sqflite.dart" as sql;
 
 class AddItemNotifier extends StateNotifier<List<Place>> {
   AddItemNotifier() : super([]);
