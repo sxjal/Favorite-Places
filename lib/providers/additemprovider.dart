@@ -17,13 +17,28 @@ class AddItemNotifier extends StateNotifier<List<Place>> {
     print(copiedimage);
 
     final dbpath = await sql.getDatabasesPath();
-    sql.openDatabase(
+    final db = await sql.openDatabase(
       path.join(dbpath, 'places.db'),
       onCreate: (db, version) {
         return db.execute(
-            'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT, lat REAL, lng REAL, address TEXT)');
+          'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT, lat REAL, lng REAL, address TEXT)',
+        );
+      },
+      version: 1,
+    );
+
+    db.insert(
+      "user_places",
+      {
+        "id": place.id,
+        "title": place.title,
+        "image": place.image.path,
+        "lat": place.location.latitude,
+        "lng": place.location.longitude,
+        "address": place.location.address,
       },
     );
+    
     state = [...state, place];
   }
 
