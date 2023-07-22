@@ -12,7 +12,8 @@ class AddItemNotifier extends StateNotifier<List<Place>> {
   void addplace(Place place) async {
     final appDir = await syspath.getApplicationDocumentsDirectory();
     final filename = path.basename(place.image.path);
-    
+    final copiedimage = await place.image.copy('${appDir.path}/$filename');
+    print(copiedimage);
     state = [...state, place];
   }
 
