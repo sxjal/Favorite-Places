@@ -1,10 +1,20 @@
 import 'package:favorite_places/models/place.dart';
+import 'package:favorite_places/widgets/apikey.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 class PlaceDetailScreen extends StatelessWidget {
   const PlaceDetailScreen({super.key, required this.place});
 
   final Place place;
+
+  String get LocationImage {
+    final key = ApiKey().getkey();
+    final lat = place.location.latitude;
+    final lang = place.location.longitude;
+
+    return "https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lang&zoom=16&size=600x300&maptype=roadmap&markers=color:blueA%7Clabel:S%7C$lat,$lang&key=$key";
+  }
 
   @override
   Widget build(context) {
@@ -28,7 +38,10 @@ class PlaceDetailScreen extends StatelessWidget {
             right: 0,
             child: Column(
               children: [
-                CircleAvatar(),
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: NetworkImage(LocationImage),
+                ),
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
