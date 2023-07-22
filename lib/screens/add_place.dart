@@ -50,49 +50,51 @@ class _AddPlacesScreenState extends ConsumerState<AddPlacesScreen> {
       appBar: AppBar(
         title: const Text('Add New Place'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Title',
-                  fillColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Form(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Title',
+                    fillColor: Colors.white,
+                  ),
+                  controller: _controller,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
-                controller: _controller,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ImageInput(onimageadd: (addedimage) {
-                selectedimage = addedimage;
-              }),
-              const SizedBox(
-                height: 20,
-              ),
-              LocationInput(
-                onselectlocation: (location) {
-                  selectedlocation = location;
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton.icon(
-                onPressed: _saveplace,
-                icon: const Icon(
-                  Icons.add,
+                ImageInput(onimageadd: (addedimage) {
+                  selectedimage = addedimage;
+                }),
+                const SizedBox(
+                  height: 20,
                 ),
-                label: const Text('Add Place'),
-              ),
-            ],
+                LocationInput(
+                  onselectlocation: (location) {
+                    selectedlocation = location;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton.icon(
+                  onPressed: _saveplace,
+                  icon: const Icon(
+                    Icons.add,
+                  ),
+                  label: const Text('Add Place'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
