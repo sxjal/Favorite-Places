@@ -34,6 +34,7 @@ class AddItemNotifier extends StateNotifier<List<Place>> {
     data.map(
       (row) {
         return Place(
+          id: row['id'] as String,
           title: row['title'] as String,
           image: File(row['image'] as String),
           location: PlaceLocation(
