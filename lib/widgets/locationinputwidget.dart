@@ -32,6 +32,29 @@ class _LocationInputState extends State<LocationInput> {
     return "https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lang&zoom=16&size=600x300&maptype=roadmap&markers=color:blueA%7Clabel:S%7C$lat,$lang&key=$key";
   }
 
+  Future<void> _saveplace(double lat, double lng) async {
+    final key = ApiKey().getkey();
+    final url = Uri.parse(
+        "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$key");
+
+    final locationresponse = await http.get(url);
+
+    final String address =
+        json.decode(locationresponse.body)['results'][0]['formatted_address'];
+
+    setState(() {
+      _pickedlocation = PlaceLocation(
+        latitude: lat,
+        longitude: lng,
+        address: address,
+      );
+      print(address);
+      _isgettinglocation = false;
+    });
+
+    widget.onselectlocation(_pickedlocation!);
+  }
+
   void _getcurrentLocation() async {
     Location location = Location();
 
@@ -61,34 +84,7 @@ class _LocationInputState extends State<LocationInput> {
 
     locationData = await location.getLocation();
 
-    final key = ApiKey().getkey();
-
-    final lat = locationData.latitude;
-    final lang = locationData.longitude;
-
-    final url = Uri.parse(
-        "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lang&key=$key");
-
-    if (lat == null || lang == null) {
-      return;
-    }
-
-    final locationresponse = await http.get(url);
-
-    final String address =
-        json.decode(locationresponse.body)['results'][0]['formatted_address'];
-
-    setState(() {
-      _pickedlocation = PlaceLocation(
-        latitude: lat,
-        longitude: lang,
-        address: address,
-      );
-      print(address);
-      _isgettinglocation = false;
-    });
-
-    widget.onselectlocation(_pickedlocation!);
+    _saveplace(locationData.latitude!, locationData.longitude!);
   }
 
   void _selectonmap() async {
@@ -97,6 +93,12 @@ class _LocationInputState extends State<LocationInput> {
         builder: (ctx) => MapScreen(),
       ),
     );
+
+    if (pickedlocation == null) {
+      return;
+    } else {
+      _saveplace(pickedlocation.latitude, pickedlocation.longitude);
+    }
   }
 
   @override
