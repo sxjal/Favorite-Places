@@ -5,7 +5,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/providers/additemProvider.dart";
 import "dart:io";
 import "package:favorite_places/models/place.dart";
-import "package:location/location.dart";
 
 class AddPlacesScreen extends ConsumerStatefulWidget {
   const AddPlacesScreen({super.key});
