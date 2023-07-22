@@ -27,11 +27,11 @@ class AddItemNotifier extends StateNotifier<List<Place>> {
   AddItemNotifier() : super([]);
   //initialstate
 
-  void loadplaces() async {
+  Future<void> loadplaces() async {
     final db = await _getdb();
     final data = await db.query('user_places');
 
-    data.map(
+    final places = data.map(
       (row) {
         return Place(
           id: row['id'] as String,
@@ -45,6 +45,8 @@ class AddItemNotifier extends StateNotifier<List<Place>> {
         );
       },
     ).toList();
+
+    state = places;
   }
 
   void addplace(Place place) async {

@@ -4,8 +4,20 @@ import 'package:flutter/material.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:favorite_places/providers/additemProvider.dart";
 
-class PlacesScreen extends ConsumerWidget {
+class PlacesScreen extends ConsumerStatefulWidget {
   const PlacesScreen({super.key});
+
+  ConsumerState<PlacesScreen> createState() => _PlacesScreenState();
+}
+
+class _PlacesScreenState extends ConsumerState<PlacesScreen> {
+  late Future<void> _placesfuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _placesfuture = ref.read(placesProvider.notifier).loadplaces();
+  }
 
   void addItem(BuildContext context) {
     Navigator.of(context).push(
@@ -16,7 +28,7 @@ class PlacesScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final addedplaces = ref.watch(placesProvider);
     return Scaffold(
       appBar: AppBar(
@@ -32,8 +44,16 @@ class PlacesScreen extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: PlacesList(
-          places: addedplaces,
+        child: FutureBuilder(
+          future: _placesfuture,
+          builder: (context, snapshot) =>
+              snapshot.connectionState == ConnectionState.waiting
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : PlacesList(
+                      places: addedplaces,
+                    ),
         ),
       ),
     );
