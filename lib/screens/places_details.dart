@@ -8,7 +8,7 @@ class PlaceDetailScreen extends StatelessWidget {
 
   final Place place;
 
-  String get LocationImage {
+  String get locationimage {
     final key = ApiKey().getkey();
     final lat = place.location.latitude;
     final lang = place.location.longitude;
@@ -53,7 +53,7 @@ class PlaceDetailScreen extends StatelessWidget {
                   },
                   child: CircleAvatar(
                     radius: 70,
-                    backgroundImage: NetworkImage(LocationImage),
+                    backgroundImage: NetworkImage(locationimage),
                   ),
                 ),
                 Container(
