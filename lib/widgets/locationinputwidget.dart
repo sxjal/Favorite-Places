@@ -44,14 +44,15 @@ class _LocationInputState extends State<LocationInput> {
     setState(() {
       _isgettinglocation = true;
     });
-    final obj = apikey();
     locationData = await location.getLocation();
-    final api_key = obj.getkey();
+
+    final key = ApiKey().getkey();
+
     final lat = locationData.latitude;
     final lang = locationData.longitude;
 
     final url = Uri.parse(
-        "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lang&key=$api_key");
+        "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lang&key=$key");
 
     if (lat == null || lang == null) {
       return;
