@@ -38,7 +38,7 @@ class _MapScreenState extends State<MapScreen> {
         ],
       ),
       body: GoogleMap(
-        onTap: widget.isselecting
+        onTap: !widget.isselecting
             ? null
             : (position) {
                 setState(
