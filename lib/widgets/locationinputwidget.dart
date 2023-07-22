@@ -152,7 +152,7 @@ class _LocationInputState extends State<LocationInput> {
               ),
               onPressed: () {},
               label: const Text(
-                "Select Location Manually",
+                "Select Location Map",
               ),
             ),
           ],

@@ -28,7 +28,9 @@ class _MapScreenState extends State<MapScreen> {
         actions: [
           if (widget.isselecting)
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop(_pickedlocation);
+              },
               icon: const Icon(
                 Icons.save,
               ),
@@ -50,7 +52,7 @@ class _MapScreenState extends State<MapScreen> {
           ),
           zoom: 16,
         ),
-        markers: _pickedlocation == null
+        markers: (_pickedlocation == null && widget.isselecting)
             ? {}
             : {
                 Marker(
